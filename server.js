@@ -1,40 +1,40 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const cors = require('cors');
 const app = express();
 
-// 1. ตั้งค่า Port สำหรับ Render (สำคัญมาก)
+// ตั้งค่า Port สำหรับ Render
 const PORT = process.env.PORT || 3000;
 
-// 2. ตั้งค่าการรับข้อมูลจากฟอร์ม (Middleware)
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// 3. บอกให้ Server รู้ว่าไฟล์ HTML/CSS อยู่ในโฟลเดอร์ public
+// บอกให้ Server ดึงไฟล์จากโฟลเดอร์ public มาโชว์
 app.use(express.static(path.join(__dirname, 'public')));
 
-// 4. เชื่อมต่อฐานข้อมูล (yenix.db)
+// เชื่อมต่อฐานข้อมูล
 const db = new sqlite3.Database('./yenix.db', (err) => {
-    if (err) console.error('Error opening database:', err.message);
-    else console.log('Connected to the SQLite database.');
+    if (err) console.error('Database error:', err.message);
+    else console.log('Connected to yenix.db');
 });
 
-// 5. โค้ดสำหรับสมัครสมาชิก (ตัวอย่างการรับข้อมูลจาก register.html)
+// API สำหรับสมัครสมาชิก
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
-    
     const sql = `INSERT INTO users (username, password) VALUES (?, ?)`;
+    
     db.run(sql, [username, password], function(err) {
         if (err) {
-            console.error(err.message);
-            return res.status(500).send("Registration failed: " + err.message);
+            return res.status(500).json({ success: false, message: err.message });
         }
-        res.send("Registration successful! You can now login.");
+        res.json({ success: true, message: "Registration successful!" });
     });
 });
 
-// 6. หน้าแรกให้เปิด index.html ในโฟลเดอร์ public
-app.get('/', (req, res) => {
+// ส่งหน้าแรกให้ผู้ใช้
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
