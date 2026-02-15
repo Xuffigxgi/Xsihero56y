@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YENIX HUB - Premium Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Orbitron:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-pink: #ff0055;
+            --accent-pink: #ff3370;
+            --dark-bg: #050507;
+            --glass-bg: rgba(20, 20, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --text-glow: 0 0 20px rgba(255, 0, 85, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Kanit', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bg-animate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 10%, rgba(30, 40, 80, 0.2), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 60, 0.15), transparent 40%);
+            animation: bgShift 10s ease-in-out infinite alternate;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: floatOrb 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #3b0018;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #081024;
+            top: -10%;
+            left: -10%;
+            animation-delay: -4s;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 16px 6px 6px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #222;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        @keyframes bgShift {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+            position: relative;
+            z-index: 100;
+
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+
+            animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .logo-img {
+            height: 45px;
+            display: block;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.2));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #a0a0b0;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary-pink);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 6px 16px 6px 6px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #222;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            margin-top: -60px;
+            z-index: 1;
+        }
+
+
+        .hero-animate {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 100px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #fff;
+
+            background: linear-gradient(180deg, #ffffff 20%, #aaaaaa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 25px rgba(255, 255, 255, 0.15));
+
+            animation-delay: 0.2s;
+        }
+
+        h2 {
+            font-size: 28px;
+            font-weight: 500;
+            color: var(--accent-pink);
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.4;
+            text-shadow: 0 0 15px rgba(255, 0, 85, 0.3);
+            animation-delay: 0.4s;
+        }
+
+        p.description {
+            color: #888899;
+            font-size: 17px;
+            font-weight: 300;
+            margin-bottom: 50px;
+            animation-delay: 0.5s;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            animation-delay: 0.6s;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff0f4b 0%, #ff0077 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 10px 40px rgba(255, 0, 90, 0.35);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            transform: skewX(-25deg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 50px rgba(255, 0, 90, 0.5);
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+            transition: 0.5s;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: #ccc;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            border-color: #fff;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .issue-badge {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #d62828;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 100;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.4);
+            animation: pulseBadge 3s infinite;
+        }
+
+        @keyframes pulseBadge {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(214, 40, 40, 0.7);
+            }
+
+            70% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(214, 40, 40, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(214, 40, 40, 0);
+            }
+        }
+
+        .n-circle {
+            background: #fff;
+            color: #d62828;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Profile Dropdown */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-auth {
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-login {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-register {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 85, 0.4);
+        }
+
+        .profile-menu {
+            position: relative;
+        }
+
+        .profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 15px 5px 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .profile-trigger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+            border: 2px solid var(--primary-pink);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 180px;
+            background: rgba(15, 15, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+        }
+
+        .dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .dropdown-item.danger {
+            color: #ff3333;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(255, 51, 51, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-animate"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header>
+        <div class="logo">
+            <img src="https://img5.pic.in.th/file/secure-sv1/yonex78756deec19e4cab.png" alt="YENIX HUB"
+                class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li><a href="shop.html">ร้านค้า</a></li>
+                <li><a href="#">เติมเงิน</a></li>
+                <li><a href="https://discord.gg/XVXWdfpa" target="_blank">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons" id="auth-section">
+            <!-- Injected via JS -->
+            <a href="login.html" class="btn-auth btn-login">Login</a>
+            <a href="register.html" class="btn-auth btn-register">Register</a>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="hero-animate">YENIX HUB</h1>
+        <h2 class="hero-animate">จำหน่าย แอคเคาท์พรี่เมี่ยม และ สคริปต์ สำหรับ <br><span
+                style="color:#fff; font-weight:600;">Platform
+                Roblox</span></h2>
+
+        <div class="buttons hero-animate" style="margin-top: 40px;">
+            <a href="shop.html" class="btn btn-primary">
+                เลือกดูสินค้า <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+            <a href="https://discord.gg/XVXWdfpa" target="_blank" class="btn btn-secondary">
+                ติดต่อทางเรา <i class="fa-brands fa-discord"></i>
+            </a>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Check Login Status
+        function updateAuthUI() {
+            const userStr = localStorage.getItem('yenix_user');
+            const authSection = document.getElementById('auth-section');
+
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                const roleLabel = user.role === 'Super Admin' ? 'Admin' : 'Member';
+
+                authSection.innerHTML = `
+                    <div class="profile-menu">
+                        <div class="profile-trigger" onclick="toggleDropdown()">
+                            <div class="avatar">${user.username.charAt(0).toUpperCase()}</div>
+                            <span style="font-size: 14px;">${user.username}</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #888;"></i>
+                        </div>
+                        <div class="dropdown" id="profile-dropdown">
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-user"></i> Profile (${roleLabel})
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-clock-rotate-left"></i> History
+                            </div>
+                            ${user.role === 'Super Admin' ?
+                        `<a href="admin.html" class="dropdown-item"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a>` : ''}
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <a href="login.html" class="btn-auth btn-login">Login</a>
+                    <a href="register.html" class="btn-auth btn-register">Register</a>
+                `;
+            }
+        }
+
+        function toggleDropdown() {
+            const dp = document.getElementById('profile-dropdown');
+            if (dp) dp.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const trigger = document.querySelector('.profile-trigger');
+            const dp = document.getElementById('profile-dropdown');
+            if (trigger && dp && !trigger.contains(e.target) && !dp.contains(e.target)) {
+                dp.classList.remove('active');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('yenix_user');
+            window.location.reload();
+        }
+
+        updateAuthUI();
+
+        document.addEventListener('DOMContentLoaded', () => {
+            applySettings(); // Apply dynamic settings
+
+            // Re-trigger animations if needed, or simple appear
+            const heroElements = document.querySelectorAll('.hero-animate');
+            heroElements.forEach((el, index) => {
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+
+    <div class="issue-badge">
+        <div class="n-circle">N</div>
+        <span>1 Issue</span>
+        <i class="fa-solid fa-xmark" style="font-size: 12px; margin-left: auto; opacity: 0.7;"></i>
+    </div>
+
+</body>
+
+</html>

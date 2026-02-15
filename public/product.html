@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YENIX HUB - Premium Store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Orbitron:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-pink: #ff0055;
+            --accent-pink: #ff3370;
+            --neon-green: #00ff9d;
+            --dark-bg: #050507;
+            --glass-bg: rgba(20, 20, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --card-glass: rgba(15, 15, 22, 0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Kanit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-animate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            background: radial-gradient(circle at 10% 10%, rgba(30, 40, 80, 0.2), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 60, 0.15), transparent 40%);
+            animation: bgShift 10s ease-in-out infinite alternate;
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: floatOrb 8s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #3b0018;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #081024;
+            top: -10%;
+            left: -10%;
+            animation-delay: -4s;
+        }
+
+        @keyframes bgShift {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            animation: slideDown 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .logo-img {
+            height: 45px;
+            display: block;
+            filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.2));
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #a0a0b0;
+            font-size: 15px;
+            font-weight: 500;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary-pink);
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Auth Buttons & Dropdown (Copied from index.html) */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-auth {
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-login {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-register {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 85, 0.4);
+        }
+
+        .profile-menu {
+            position: relative;
+        }
+
+        .profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 15px 5px 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .profile-trigger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+            border: 2px solid var(--primary-pink);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 180px;
+            background: rgba(15, 15, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .dropdown-item.danger {
+            color: #ff3333;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(255, 51, 51, 0.1);
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #222;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 50px auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            animation: fadeUp 0.8s ease-out;
+        }
+
+        .product-card {
+            background: var(--card-glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 50px;
+            align-items: start;
+            /* Changed from stretch to start */
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-image-box {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+            background: #000;
+            display: flex;
+            height: auto;
+            /* Changed from 100% */
+            /* min-height removed */
+        }
+
+        .product-img {
+            width: 100%;
+            height: auto;
+            /* Changed from 100% */
+            display: block;
+        }
+
+        .product-image-box:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .img-overlay-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 10%, transparent);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 12px;
+            color: #666;
+            font-weight: 700;
+        }
+
+        .overlay-left span {
+            display: block;
+            color: #cba135;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .product-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 5px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .product-price {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--neon-green);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            text-shadow: 0 0 15px rgba(0, 255, 157, 0.4);
+        }
+
+        .currency {
+            font-size: 20px;
+            color: #888;
+            font-weight: 500;
+        }
+
+        .section-label {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .feature-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            font-size: 15px;
+            color: #ddd;
+            line-height: 1.5;
+        }
+
+        .feature-item i {
+            font-size: 16px;
+            margin-top: 4px;
+        }
+
+        .icon-gold {
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+        }
+
+        .icon-blue {
+            color: #00ccff;
+            text-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
+        }
+
+        .feature-title {
+            color: #fff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .sub-list {
+            padding-left: 0;
+            list-style: none;
+            margin-top: 4px;
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .stock-status {
+            background: rgba(0, 255, 157, 0.03);
+            border: 1px solid rgba(0, 255, 157, 0.2);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: var(--neon-green);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .btn-buy {
+            background: linear-gradient(90deg, #ff0f4b 0%, #ff0077 100%);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 18px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            font-family: 'Kanit', sans-serif;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255, 0, 90, 0.3);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-buy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: 0.5s;
+            transform: skewX(-25deg);
+        }
+
+        .btn-buy:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 0, 90, 0.5);
+        }
+
+        .btn-buy:hover::before {
+            left: 100%;
+            transition: 0.5s;
+        }
+
+        .btn-buy:active {
+            transform: scale(0.98);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .product-card {
+                grid-template-columns: 1fr;
+            }
+
+            .product-image-box {
+                height: auto;
+                min-height: auto;
+                max-height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-animate"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <header>
+        <div class="logo">
+            <img src="https://img5.pic.in.th/file/secure-sv1/yonex78756deec19e4cab.png" alt="YENIX HUB"
+                class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li><a href="shop.html">ร้านค้า</a></li>
+                <li><a href="#">เติมเงิน</a></li>
+                <li><a href="https://discord.gg/XVXWdfpa" target="_blank">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons" id="auth-section">
+            <!-- Injected via JS -->
+        </div>
+    </header>
+
+    <main class="main-container">
+        <div class="product-card">
+
+            <div class="product-image-box">
+                <img id="p-img" src="" alt="Product Image" class="product-img" style="display:none;">
+            </div>
+
+            <div class="product-info">
+                <h1 id="p-title" class="product-title">Loading...</h1>
+                <div class="product-price">
+                    <span id="p-price">--</span> <span class="currency">THB</span>
+                </div>
+
+                <div class="section-label">คำอธิบายสินค้า :</div>
+                <div id="p-desc" style="color:#ddd; margin-bottom: 20px;"></div>
+
+                <div class="section-label">ฟีเจอร์ :</div>
+                <ul id="p-features" class="feature-list">
+                    <!-- Features loaded here -->
+                </ul>
+
+                <div class="stock-status">
+                    <i class="fa-solid fa-cube"></i> Remaining Stock: <span id="p-stock">--</span> ชิ้น
+                </div>
+
+                <button class="btn-buy" onclick="buyProduct()">
+                    <i class="fa-solid fa-cart-shopping"></i> สั่งซื้อสินค้า
+                </button>
+
+            </div>
+        </div>
+    </main>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Check Login Status
+        function updateAuthUI() {
+            const userStr = localStorage.getItem('yenix_user');
+            const authSection = document.getElementById('auth-section');
+
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                const roleLabel = user.role === 'Super Admin' ? 'Admin' : 'Member';
+
+                authSection.innerHTML = `
+                    <div class="profile-menu">
+                        <div class="profile-trigger" onclick="toggleDropdown()">
+                            <div class="avatar">${user.username.charAt(0).toUpperCase()}</div>
+                            <span style="font-size: 14px;">${user.username}</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #888;"></i>
+                        </div>
+                        <div class="dropdown" id="profile-dropdown">
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-user"></i> Profile (${roleLabel})
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-clock-rotate-left"></i> History
+                            </div>
+                            ${user.role === 'Super Admin' ?
+                        `<a href="admin.html" class="dropdown-item"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a>` : ''}
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <a href="login.html" class="btn-auth btn-login">Login</a>
+                    <a href="register.html" class="btn-auth btn-register">Register</a>
+                `;
+            }
+        }
+
+        function toggleDropdown() {
+            const dp = document.getElementById('profile-dropdown');
+            if (dp) dp.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const trigger = document.querySelector('.profile-trigger');
+            const dp = document.getElementById('profile-dropdown');
+            if (trigger && dp && !trigger.contains(e.target) && !dp.contains(e.target)) {
+                dp.classList.remove('active');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('yenix_user');
+            window.location.reload();
+        }
+
+        async function buyProduct() {
+            const userStr = localStorage.getItem('yenix_user');
+            if (!userStr) {
+                showToast('Please login to buy products', 'error');
+                setTimeout(() => window.location.href = 'login.html', 1000);
+                return;
+            }
+
+            const user = JSON.parse(userStr);
+            const id = getQueryParam('id');
+            const submitBtn = document.querySelector('.btn-buy');
+
+            // Disable button
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+
+            try {
+                const res = await fetch(`${API_BASE}/orders`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        user_id: user.id,
+                        product_id: id
+                    })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    showToast('Purchase Successful! Order #' + data.order.id, 'success');
+                    // Update Stock UI (Optional, reload page or just decr)
+                    setTimeout(() => window.location.reload(), 1500);
+                } else {
+                    showToast(data.message || 'Purchase Failed', 'error');
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> สั่งซื้อสินค้า';
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Server Error', 'error');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa-solid fa-cart-shopping"></i> สั่งซื้อสินค้า';
+            }
+        }
+
+        updateAuthUI();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const id = getQueryParam('id');
+            if (!id) {
+                window.location.href = 'shop.html';
+                return;
+            }
+
+            const product = await fetchProductDetails(id);
+            if (!product) {
+                document.querySelector('.product-title').innerText = 'Product not found';
+                return;
+            }
+
+            // Populate Data
+            document.title = `${product.name} - YENIX HUB`;
+            document.getElementById('p-title').innerText = product.name;
+            document.getElementById('p-price').innerText = formatCurrency(product.price).replace('฿', ''); // formatCurrency has symbol, maybe separate
+            document.getElementById('p-price').innerText = product.price.toLocaleString();
+
+            const imgEl = document.getElementById('p-img');
+            if (product.image_url) {
+                imgEl.src = product.image_url;
+                imgEl.style.display = 'block';
+            }
+
+            document.getElementById('p-desc').innerText = product.description || '-';
+            document.getElementById('p-stock').innerText = product.stock;
+
+            // Features
+            const featList = document.getElementById('p-features');
+            featList.innerHTML = '';
+
+            let features = [];
+            try {
+                features = JSON.parse(product.features || '[]');
+            } catch (e) {
+                features = [product.features || ''];
+            }
+
+            if (Array.isArray(features)) {
+                features.forEach(feat => {
+                    const li = document.createElement('li');
+                    li.className = 'feature-item';
+                    li.innerHTML = `
+                         <i class="fa-solid fa-check icon-gold"></i>
+                         <div>${feat}</div>
+                    `;
+                    featList.appendChild(li);
+                });
+            } else if (typeof features === 'string') {
+                featList.innerHTML = `<li class="feature-item"><div>${features}</div></li>`;
+            }
+        });
+    </script>
+
+</body>
+
+</html>

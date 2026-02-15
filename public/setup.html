@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Setup - YENIX HUB</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Orbitron:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-pink: #ff0055;
+            --dark-bg: #050507;
+            --glass-bg: rgba(20, 20, 30, 0.75);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kanit', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .bg-animate {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 50% 50%, rgba(30, 40, 80, 0.4), transparent 70%);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            animation: floatOrb 10s ease-in-out infinite;
+            opacity: 0.5;
+        }
+
+        .orb-1 {
+            width: 500px;
+            height: 500px;
+            background: #3b0018;
+            top: -10%;
+            left: -10%;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: #081024;
+            bottom: -10%;
+            right: -10%;
+            animation-delay: -5s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        .setup-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 50px;
+            border-radius: 24px;
+            width: 600px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #333;
+            transition: 0.3s;
+        }
+
+        .dot.active {
+            background: var(--primary-pink);
+            box-shadow: 0 0 10px var(--primary-pink);
+            transform: scale(1.2);
+        }
+
+        .dot.completed {
+            background: #00cc66;
+        }
+
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            font-family: 'Orbitron';
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-pink);
+        }
+
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-prev {
+            background: transparent;
+            color: #aaa;
+            border: 1px solid #333;
+        }
+
+        .btn-prev:hover {
+            border-color: #666;
+            color: white;
+        }
+
+        .btn-next {
+            background: var(--primary-pink);
+            color: white;
+        }
+
+        .btn-next:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-animate"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="setup-card">
+        <div class="step-indicators">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+
+        <div class="step-content active" id="step-1">
+            <h2>Welcome to YENIX HUB</h2>
+            <p>Let's configure your new premium store system.</p>
+            <div style="font-size: 60px; color: var(--primary-pink); margin-bottom: 30px;">
+                <i class="fa-solid fa-rocket"></i>
+            </div>
+            <button class="btn btn-next" onclick="nextStep(2)">Get Started</button>
+        </div>
+
+        <div class="step-content" id="step-2">
+            <h2>Site Configuration</h2>
+            <p>Set up basic details for your website.</p>
+            <div class="form-group">
+                <label class="form-label">Site Title (Brand Name)</label>
+                <input type="text" id="site-title" class="form-control" value="YENIX HUB">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-prev" onclick="prevStep(1)">Back</button>
+                <button class="btn btn-next" onclick="nextStep(3)">Next</button>
+            </div>
+        </div>
+
+        <div class="step-content" id="step-3">
+            <h2>Admin Account</h2>
+            <p>Create your Super Admin account.</p>
+            <div class="form-group">
+                <label class="form-label">Username</label>
+                <input type="text" id="admin-user" class="form-control" placeholder="admin">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Password</label>
+                <input type="password" id="admin-pass" class="form-control" placeholder="******">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Confirm Password</label>
+                <input type="password" id="admin-pass-confirm" class="form-control" placeholder="******">
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-prev" onclick="prevStep(2)">Back</button>
+                <button class="btn btn-next" onclick="finishSetup()">Finish Setup</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        async function init() {
+            try {
+                const res = await fetch(`${API_BASE}/auth/check`);
+                const data = await res.json();
+                if (!data.setupRequired) {
+                    alert('System already setup!');
+                    window.location.href = 'login.html';
+                }
+            } catch (e) { }
+        }
+        init();
+
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        function updateDots(step) {
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((d, i) => {
+                d.classList.remove('active', 'completed');
+                if (i + 1 < step) d.classList.add('completed');
+                if (i + 1 === step) d.classList.add('active');
+            });
+        }
+
+        function nextStep(step) {
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            currentStep = step;
+            document.getElementById(`step-${currentStep}`).classList.add('active');
+            updateDots(currentStep);
+        }
+
+        function prevStep(step) {
+            nextStep(step);
+        }
+
+        async function finishSetup() {
+            const title = document.getElementById('site-title').value;
+            const user = document.getElementById('admin-user').value;
+            const pass = document.getElementById('admin-pass').value;
+            const confirm = document.getElementById('admin-pass-confirm').value;
+
+            if (!user || !pass) return showToast('Please fill all fields', 'error');
+            if (pass !== confirm) return showToast('Passwords do not match', 'error');
+
+            try {
+                const res = await fetch(`${API_BASE}/auth/setup`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        site_title: title,
+                        admin_user: user,
+                        admin_pass: pass
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('Setup Complete!', 'success');
+                    setTimeout(() => window.location.href = 'login.html', 1500);
+                } else {
+                    showToast(data.error || 'Setup failed', 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('Server connection failed', 'error');
+            }
+        }
+    </script>
+</body>
+
+</html>

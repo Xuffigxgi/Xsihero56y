@@ -1,0 +1,100 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "SCRIPT",
+      "description": "เลือกดู สคริป ที่คุณต้องการ",
+      "image_url": "https://img5.pic.in.th/file/secure-sv1/imagef5f4d04d70fc4533.png"
+    },
+    {
+      "id": 2,
+      "name": "APPLICATION",
+      "description": "เลือกดู แอปพลิเคชั่น ที่ต้องการ",
+      "image_url": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"
+    }
+  ],
+  "products": [
+    {
+      "id": 4,
+      "category_id": 2,
+      "name": "Netflix",
+      "price": 120,
+      "description": "Premium 4K",
+      "image_url": "https://assets.nflxext.com/us/ffe/siteui/common/icons/nficon2016.png",
+      "stock": 50,
+      "features": "[\"4K Ultra HD\",\"1 Screen\"]",
+      "supported_maps": "[]"
+    },
+    {
+      "id": 6,
+      "category_id": "1",
+      "name": "30 Day Access Key Script",
+      "price": 79,
+      "description": "สคริปต์ Yenix Exploit (คีย์ 30 วัน)",
+      "image_url": "https://img5.pic.in.th/file/secure-sv1/-----Instagram-Postf572236f5671268c.png",
+      "stock": 11,
+      "features": "[\"สคริปต์ Yenix Exploit (คีย์ 30 วัน)\",\"รองรับ Executor หลากหลายตัว (ยกเว้น Xenoและ Solara)\",\"อัปเดตอย่างต่อเนื่อง\"]",
+      "supported_maps": "[]"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "ILLSLICK888",
+      "password": "123456",
+      "role": "Super Admin",
+      "status": "Active",
+      "last_login": "2026-02-01T17:16:14.509Z"
+    },
+    {
+      "id": 2,
+      "username": "A",
+      "password": "1",
+      "role": "Member",
+      "status": "Active",
+      "last_login": "2026-02-01T17:16:40.151Z"
+    },
+    {
+      "id": 3,
+      "username": "S",
+      "password": "S",
+      "role": "Member",
+      "status": "Active",
+      "last_login": "2026-02-01T17:23:08.079Z"
+    }
+  ],
+  "settings": {
+    "site_title": "YENIX HUB"
+  },
+  "logs": [
+    {
+      "id": 1769965915242,
+      "action": "Update Settings",
+      "details": "Updated system settings",
+      "user": "Admin",
+      "timestamp": "2026-02-01T17:11:55.242Z"
+    },
+    {
+      "id": 1769965915244,
+      "action": "Add User",
+      "details": "Added user ILLSLICK888",
+      "user": "Admin",
+      "timestamp": "2026-02-01T17:11:55.244Z"
+    },
+    {
+      "id": 1769966191607,
+      "action": "Add User",
+      "details": "Added user A",
+      "user": "Admin",
+      "timestamp": "2026-02-01T17:16:31.607Z"
+    },
+    {
+      "id": 1769966583476,
+      "action": "Add User",
+      "details": "Added user S",
+      "user": "Admin",
+      "timestamp": "2026-02-01T17:23:03.476Z"
+    }
+  ],
+  "banners": []
+}

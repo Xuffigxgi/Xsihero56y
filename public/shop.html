@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - YENIX HUB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&family=Orbitron:wght@600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-pink: #ff0055;
+            --accent-pink: #ff3370;
+            --dark-bg: #050507;
+            --glass-bg: rgba(20, 20, 30, 0.65);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #ffffff;
+            font-family: 'Kanit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .bg-animate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: radial-gradient(circle at 10% 10%, rgba(30, 40, 80, 0.2), transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(255, 0, 60, 0.15), transparent 40%);
+            animation: bgShift 10s ease-in-out infinite alternate;
+        }
+
+        /* Auth Buttons & Dropdown (Copied from index.html) */
+        .auth-buttons {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-auth {
+            padding: 8px 18px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .btn-login {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-register {
+            background: var(--primary-pink);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 15px rgba(255, 0, 85, 0.3);
+        }
+
+        .btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 0, 85, 0.4);
+        }
+
+        .profile-menu {
+            position: relative;
+        }
+
+        .profile-trigger {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 15px 5px 5px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .profile-trigger:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: #fff;
+            border: 2px solid var(--primary-pink);
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 120%;
+            right: 0;
+            width: 180px;
+            background: rgba(15, 15, 20, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.2s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .dropdown.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-size: 14px;
+            transition: 0.2s;
+            cursor: pointer;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+        }
+
+        .dropdown-item.danger {
+            color: #ff3333;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .dropdown-item.danger:hover {
+            background: rgba(255, 51, 51, 0.1);
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-avatar {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #222;
+        }
+
+        .user-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #eee;
+        }
+
+        @keyframes bgShift {
+            0% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1.05);
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 30px;
+            margin: 30px auto;
+            width: 90%;
+            max-width: 1200px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo-img {
+            height: 45px;
+            display: block;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 35px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #a0a0b0;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+        }
+
+        nav ul li a.active {
+            color: #fff;
+            font-weight: 700;
+            border-bottom: 2px solid var(--primary-pink);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            z-index: 1;
+            flex: 1;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h2.page-title {
+            font-family: 'Kanit', sans-serif;
+            font-size: 24px;
+            color: #fff;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .category-card {
+            position: relative;
+            background: linear-gradient(135deg, #111, #1a1a1a);
+            border-radius: 12px;
+            overflow: hidden;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: 0.3s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-pink);
+            box-shadow: 0 10px 30px rgba(255, 0, 85, 0.15);
+        }
+
+        .cat-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            opacity: 0.5;
+            transition: 0.5s;
+        }
+
+        .category-card:hover .cat-bg {
+            opacity: 0.6;
+            transform: scale(1.05);
+        }
+
+        .cat-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .cat-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            font-size: 32px;
+            color: #fff;
+            text-transform: uppercase;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.8);
+            margin-bottom: 5px;
+        }
+
+        .cat-count {
+            font-size: 14px;
+            color: #aaa;
+            display: inline-block;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 10px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            width: 100%;
+            padding: 50px;
+            color: #888;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bg-animate"></div>
+
+    <header>
+        <div class="logo">
+            <img src="https://img5.pic.in.th/file/secure-sv1/yonex78756deec19e4cab.png" alt="YENIX HUB"
+                class="logo-img">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">หน้าหลัก</a></li>
+                <li><a href="shop.html" class="active">ร้านค้า</a></li>
+                <li><a href="#">เติมเงิน</a></li>
+                <li><a href="https://discord.gg/XVXWdfpa" target="_blank">ติดต่อเรา</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons" id="auth-section">
+            <!-- Injected via JS -->
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h2 class="page-title"><i class="fa-solid fa-layer-group"></i> หมวดหมู่สินค้าทั้งหมด</h2>
+        </div>
+
+        <div id="shop-grid" class="grid-container">
+            <div class="loading">Loading categories...</div>
+        </div>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script>
+        // Check Login Status
+        function updateAuthUI() {
+            const userStr = localStorage.getItem('yenix_user');
+            const authSection = document.getElementById('auth-section');
+
+            if (userStr) {
+                const user = JSON.parse(userStr);
+                const roleLabel = user.role === 'Super Admin' ? 'Admin' : 'Member';
+
+                authSection.innerHTML = `
+                    <div class="profile-menu">
+                        <div class="profile-trigger" onclick="toggleDropdown()">
+                            <div class="avatar">${user.username.charAt(0).toUpperCase()}</div>
+                            <span style="font-size: 14px;">${user.username}</span>
+                            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #888;"></i>
+                        </div>
+                        <div class="dropdown" id="profile-dropdown">
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-user"></i> Profile (${roleLabel})
+                            </div>
+                            <div class="dropdown-item">
+                                <i class="fa-solid fa-clock-rotate-left"></i> History
+                            </div>
+                            ${user.role === 'Super Admin' ?
+                        `<a href="admin.html" class="dropdown-item"><i class="fa-solid fa-shield-halved"></i> Admin Panel</a>` : ''}
+                            <div class="dropdown-item danger" onclick="logout()">
+                                <i class="fa-solid fa-right-from-bracket"></i> Logout
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                authSection.innerHTML = `
+                    <a href="login.html" class="btn-auth btn-login">Login</a>
+                    <a href="register.html" class="btn-auth btn-register">Register</a>
+                `;
+            }
+        }
+
+        function toggleDropdown() {
+            const dp = document.getElementById('profile-dropdown');
+            if (dp) dp.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const trigger = document.querySelector('.profile-trigger');
+            const dp = document.getElementById('profile-dropdown');
+            if (trigger && dp && !trigger.contains(e.target) && !dp.contains(e.target)) {
+                dp.classList.remove('active');
+            }
+        });
+
+        function logout() {
+            localStorage.removeItem('yenix_user');
+            window.location.reload();
+        }
+
+        updateAuthUI();
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const grid = document.getElementById('shop-grid');
+            const categories = await fetchCategories();
+
+            grid.innerHTML = '';
+
+            if (categories.length === 0) {
+                grid.innerHTML = '<div class="loading">No categories found.</div>';
+                return;
+            }
+
+            categories.forEach(cat => {
+                const card = document.createElement('a');
+                card.className = 'category-card';
+                card.href = `products.html?category=${cat.id}`;
+
+                // Use default image if none provided
+                const bgImage = cat.image_url || 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop';
+
+                card.innerHTML = `
+                    <img src="${bgImage}" alt="${cat.name}" class="cat-bg">
+                    <div class="cat-content">
+                        <div class="cat-title">${cat.name}</div>
+                        <div class="cat-count"><i class="fa-solid fa-music"></i> ${cat.product_count || 0} สินค้า</div>
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        });
+    </script>
+</body>
+
+</html>
