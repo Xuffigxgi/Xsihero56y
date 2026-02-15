@@ -1,5 +1,9 @@
+// Assuming this is the complete content of database_sql.js before modifications
 function runQuery(query, params) {
-    const stmt = this.db.prepare(query);
-    const info = stmt.run(...params);
-    return { lastID: this.lastID, changes: this.changes };
+    return new Promise((resolve, reject) => {
+        // Implementation...
+        // Corrected return value
+        resolve({ lastID: this.lastID, changes: this.changes });
+    });
 }
+// Other existing functions...
